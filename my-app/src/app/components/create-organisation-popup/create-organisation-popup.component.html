@@ -1,0 +1,46 @@
+<div class="modal fade" #editOrgModal id="createOrganizationModal" tabindex="-1" role="dialog"
+     aria-labelledby="createOrganizationModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createOrganizationLabel">Create Organisation</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClose()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()">
+          <div class="form-row">
+            <label for="nameInput">Organisation name</label>
+            <input
+              required minlength="5"
+              type="text"
+              name="nameInput"
+              class="form-control"
+              id="nameInput"
+              #nameInput="ngModel"
+              placeholder='E.g. Holding Co'
+              ngModel>
+          </div>
+          <div *ngIf="!nameInput.valid && nameInput.touched" class="alert alert-danger">
+            <p><span>Organisation name should have at least 5 characters</span></p>
+          </div>
+          <div class="form-row">
+            <label for="orgAdminInput">Organisation Admin</label>
+            <select ngModel class="form-control" name="orgAdminInput" id="orgAdminInput" required>
+              <option *ngFor="let user of aUserService.getUsers()" class="form-control">
+                {{user.email}}</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit(formElement)"
+                    [disabled]="formElement.invalid">Create
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

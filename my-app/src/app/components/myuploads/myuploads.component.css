@@ -1,0 +1,17 @@
+.dataList {
+  max-height: 80vh;
+  overflow: auto;
+}
+
+#uploadButton {
+  /*margin-top: 50px;*/
+  margin-bottom: 10px;
+  /*float: right;*/
+  /*background-color: #28a745;*/
+  /*border: none;*/
+}
+
+span.row.mx-1.align-middle {
+  margin: 5px 0px;
+}
+

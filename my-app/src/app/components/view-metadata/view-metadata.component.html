@@ -1,0 +1,63 @@
+<div class="modal fade" #viewModal id="viewMetaDataModal" tabindex="-1" role="dialog"
+     aria-labelledby="viewMetaDataModalLabel"
+     data-backdrop="static" data-keyboard="false" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewMetaDataModalLabel">View dataset metadata</h5>
+        <button type="button" class="close" (click)="onClose()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()" *ngIf="viewingDataset">
+          <!--<span><strong>Name:</strong> {{viewingDataset.name}}<br>
+            <strong>Region:</strong> {{regionLevels[viewingDataset.region]}}<br>
+            <strong>Publicity:</strong> {{viewingDataset.publicity}}<br>
+            <strong>Uploaded by:</strong> {{viewingDataset.user.email}}
+          </span>-->
+          <div class="row">
+            <div class="col-md-12 mx-auto">
+              <label for="datasetName">Name</label>
+              <p class="border border-success rounded p-1" id="datasetName">
+                {{viewingDataset.description}}
+              </p>
+            </div>
+            <div class="col-md-3 mx-auto">
+              <label for="datasetRegion">Region</label>
+              <p class="border border-success rounded p-1" id="datasetRegion">
+                {{regionLevels[viewingDataset.region]}}
+              </p>
+            </div>
+            <div class="col-md-3 mx-auto">
+              <label for="datasetPublicity">Publicity</label>
+              <p class="border border-success rounded p-1" id="datasetPublicity">
+                {{publicityLevels[viewingDataset.publicity]}}
+              </p>
+            </div>
+            <div class="col-md-3 mx-auto">
+              <label for="datasetYear">Year</label>
+              <p class="border border-success rounded p-1" id="datasetYear">
+                {{viewingDataset.year}}
+              </p>
+            </div>
+            <div class="col-md-12" *ngIf="viewingDataset.description">
+              <label for="datasetDescription" class="col-12 p-0">Description</label>
+              <textarea class="border border-success rounded p-1 col-12" id="datasetDescription" readonly>{{viewingDataset.description}}
+              </textarea>
+            </div>
+
+            <div class="col-md-12">
+<!--              <label for="datasetUser">Uploaded by</label>-->
+              <p>Uploaded by<span class="font-weight-bold" id="datasetUser"> {{viewingDataset.user.email}}
+              </span></p>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="onClose()" data-dismiss="modal">Close</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

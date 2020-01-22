@@ -1,0 +1,78 @@
+.navbar button {
+  margin-left: 10px;
+  margin-top: 5px;
+  border-radius: inherit;
+  padding: 35px;
+  color: #97CB3B;
+}
+
+.nav-link {
+  font-size: 19px;
+  font-weight: 400;
+  color: black !important;
+  transition: .3s color ease !important;
+}
+
+.nav-link:hover {
+  color: Gray !important;
+}
+
+.navbar-brand img {
+  height: 80px;
+  width: 200px;
+}
+
+nav.navbar {
+  background-color: white;
+  border-bottom: 4px solid #97CB3B;
+}
+
+.navbar-logo:hover {
+  opacity: 1 !important;
+}
+
+.active {
+  border-bottom: 3px solid black;
+  font-weight: 600;
+  color: black !important;
+}
+
+.active:hover {
+  font-weight: 600;
+  color: black !important;
+}
+
+.right-nav-button {
+  /* color: white;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: #00a6a6;
+  padding: 14px 28px;
+  font-size: 19px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition-duration: .4s; */
+}
+
+.right-nav-button:hover {
+  /* background: darkcyan !important; */
+}
+
+.sign-in::before {
+  font-family: FontAwesome;
+  content: "\f090";
+  display: inline-block;
+  padding-right: 6px;
+  vertical-align: middle;
+  font-weight: 900;
+}
+
+.sign-out::before {
+  font-family: FontAwesome;
+  content: "\f08b";
+  display: inline-block;
+  padding-right: 6px;
+  vertical-align: middle;
+  font-weight: 900;
+}

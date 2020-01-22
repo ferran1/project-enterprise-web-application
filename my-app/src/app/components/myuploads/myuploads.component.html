@@ -1,0 +1,53 @@
+<app-edit-metadata-popup *ngIf="editMetaDataToggle" (closingToggle)="onCloseReq()" (savedDataset)="saveRequest($event)">
+</app-edit-metadata-popup> <!-- Open the Edit pop-up when an edit button is clicked -->
+<app-upload-pop-up *ngIf="uploadDatasetToggle" (closingToggle)="onCloseReq()"></app-upload-pop-up>
+<!-- Open the upload pop-up when the upload button is clicked -->
+<app-view-dataset-popup *ngIf="viewDatasetToggle" (closingToggle)="onCloseReq()"></app-view-dataset-popup>
+
+<div class="container">
+	<div class="row">
+		<div class="col-md-11 col-sm-12 col-lg-11">
+			<div class="card" id="list">
+				<div class="card-header">
+          <span class="h4">{{CMSContent["MY_UPLOADS_TITLE"]}}</span>
+          <button type="button" id="uploadButton" class="btn btn-primary float-right m-0" data-toggle="modal"
+                  data-target="#uploadModal" (click)="onUploadButtonClick()">{{CMSContent["MY_UPLOADS_UPLOAD_BUTTON"]}}
+          </button>
+				</div>
+				<ul class="dataList list-group list-group-flush">
+					<!-- Check if the logged in user has any uploaded datasets, if not show a message -->
+					<!-- show this block if the user doesn't have any uploaded datasets -->
+					<li class="list-group-item p-1" *ngIf="_userDatasets.length == 0">
+						<span class="row mx-1 my-auto">
+							{{CMSContent["MY_UPLOADS_NO_UPLOADS"]}}
+						</span>
+					</li>
+					<li class="list-group-item p-2 border border-bottom" *ngFor="let item of _userDatasets; index as i">
+						<span class="row mx-1 my-auto">
+							<!-- show this block if the user does have uploaded datasets -->
+							<span class="col-lg-8">{{item.name}}</span>
+							<span class="btn-group col-lg-4 h-75">
+								<a [href]="url" [download]="url" target="_blank" class="btn btn-warning fa fa-download"
+									[title]="CMSContent['MY_UPLOADS_DL_HOVER']" (click)="onDownload(i)"></a>
+								<button class="btn btn-info fa fa-bar-chart" data-toggle="modal"
+									data-target="#viewDatasetModal" [title]="CMSContent['MY_UPLOADS_VIEW_HOVER']"
+									(click)="onViewDatasetClick(i)"></button>
+								<button class="btn btn-primary fa fa-edit" aria-hidden="true" data-toggle="modal"
+									[title]="CMSContent['MY_UPLOADS_EDIT_HOVER']" data-target="#editMetaModal"
+									(click)="onEditMetaDataClick(i)"></button>
+								<button id="deleteButton" class="btn btn-danger fa fa-trash mr-1" aria-hidden="true"
+									[title]="CMSContent['MY_UPLOADS_DEL_HOVER']" (click)="onDelete(i)"></button>
+							</span>
+						</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<!--    <div class="col-md-3 col-sm-12 mt-5 ">-->
+		<!--      <button type="button" id="addDataset" class="btn btn-primary float-right"-->
+		<!--              (click)="onAdd()">Add dataset-->
+		<!--      </button>-->
+		<!--    </div>-->
+	</div>
+</div>

@@ -1,0 +1,9 @@
+<!-- Page navigation bar -->
+<app-navbar></app-navbar>
+<!-- Page content -->
+<div [ngClass]="router.url != '/' ? ['pt-5', 'container-fluid'] : ''" class="">
+	<router-outlet></router-outlet>
+</div>
+<!-- Footer -->
+<!--Commented out footer until fixed-->
+<!--<app-footer></app-footer>-->

@@ -1,0 +1,62 @@
+<!--<nav class="navbar navbar-light bg-light">-->
+<!--<a class="navbar-brand" href="#">-->
+<!--    <img src="assets/images/UA_logo.png" alt="Urban Analytics">-->
+<!--</a>-->
+<!--  <form class="form-inline justify-content-end">-->
+<!--    <button routerLink="/myuploads" class="btn btn-outline-success btn-lg" type="button">My uploads</button>-->
+<!--    <button class="btn btn-outline-success btn-lg" type="button">Profile</button>-->
+<!--    <button routerLink="/login" class="btn btn-outline-success btn-lg" type="button">Login</button>-->
+<!--    <button routerLink="/admin" class="btn btn-outline-success btn-lg" type="button">Admin</button>-->
+<!--  </form>-->
+<!--</nav>-->
+
+<nav class="navbar navbar-light sticky-top navbar-expand-lg pb-0 pt-0">
+  <a class="navbar-brand" routerLink="/">
+    <img class="rounded navbar-logo" src="https://northsearegion.eu/media/7419/empower-2-rgb-02-a-colour.jpg"
+         alt="Urban Analytics" style="opacity: .9;">
+  </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="w-100">
+    <div class="collapse navbar-collapse mx-auto" id="navbarNav">
+      <ul class="navbar-nav nav w-100">
+        <li class="nav-item">
+          <a class="nav-link" id="home-nav" routerLink="/homepage">{{CMSContent["NAV_HOME"]}}</a>
+        </li>
+        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
+          <a class="nav-link" id="myuploads-nav"
+             [routerLink]="['/myuploads', this.sessionService.getUserEmail()]">{{CMSContent["NAV_MY_UPLOADS"]}}</a>
+        </li>
+        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
+          <a class="nav-link" id="profile-nav"
+             [routerLink]="['/profile', this.sessionService.getUserEmail()]">{{CMSContent["NAV_PROFILE"]}}</a>
+        </li>
+        <li class="nav-item"
+            *ngIf="this.sessionService.isAuthenticated()">
+          <a class="nav-link" id="organisation-nav"
+             routerLink="/admin-organisation-panel">{{CMSContent["NAV_ORG_PANEL"]}}</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav nav justify-content-end w-100">
+        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated() && this.sessionService.getUserIsAdmin()">
+          <a class="nav-link" id="admin-nav" routerLink="/admin">{{CMSContent["NAV_ADMIN"]}}</a>
+        </li>
+        <li class="nav-item" *ngIf="!this.sessionService.isAuthenticated()">
+          <a class="right-nav-button text-dark sign-in nav-link" id="login-nav" routerLink="/login">{{CMSContent["NAV_LOG_IN"]}}</a>
+        </li>
+        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
+          <!--<a (click)="sessionService.signOff()" class="nav-link" routerLinkActive="active"
+            routerLink="/login">Log
+            Out</a>-->
+          <a (click)="sessionService.signOut()" class="nav-link sign-out border-1" id="logout-nav"
+             routerLink="/login">{{CMSContent["NAV_LOG_OUT"]}}</a>
+        </li>
+        <li class="nav-item" *ngIf="this.sessionService.isAuthenticated()">
+          <span class="navbar-text" id="user-email-nav">(User: {{ this.sessionService.getUserEmail() }})</span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

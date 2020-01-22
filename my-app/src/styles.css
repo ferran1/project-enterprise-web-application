@@ -1,0 +1,104 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~@ng-select/ng-select/themes/default.theme.css";
+
+html, body {
+  height: 100%;
+  margin: 0;
+  overflow-y: auto;
+}
+
+i.btn {
+  cursor: pointer;
+}
+
+.btn.btn-primary:hover:enabled {
+  font-weight: 500;
+  background: #8DA242 !important;
+}
+
+body.bg {
+  /*background: white !important;*/
+  /*background: linear-gradient(to right, #ebebeb, white);*/
+  /*background: linear-gradient(to right, #00b09b, #96c93d);*/
+  /*background: linear-gradient(to right, #76b852, #8dc26f); */
+  /*background: linear-gradient(to right, #11998e, #38ef7d); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+  /*background: linear-gradient(to right, #56ab2f, #92c35d); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+  /*background: linear-gradient(to right, #f79d00, #64f38c); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+  /*background-color: #11998e;*/
+  /*background-color: #f0f0f0;*/
+
+  /*background-image: url("~assets/images/Green-Nature-Macro-Ginkgo-Foliage-2560-x-1600.jpg");*/
+  /*background-position: center; !* Center the image *!*/
+  /*background-repeat: no-repeat; !* Do not repeat the image *!*/
+  /*background-size: cover; !* Resize the background image to cover the entire container *!*/
+  /*min-height: 100%;*/
+  /*background-image: url("/assets/images/Green-Nature-Macro-Ginkgo-Foliage-2560-x-1600.jpg");*/
+  background-color: #EDF2DC;
+  background-position: center; /* Center the image */
+}
+
+body {
+  /*Choose Poppins or Candara*/
+  font-family: Poppins, sans-serif !important;
+  min-height: 100%;
+
+}
+
+.text-green-primary {
+  font-weight: bold;
+  color: #A7BC5B !important;
+}
+
+.text-green-secondary {
+  font-weight: bold;
+  color: #8DA242 !important;
+}
+
+.bg-green-primary {
+  background-color: #A7BC5B !important;
+}
+
+.bg-green-secondary {
+  background-color: #8DA242 !important;
+}
+
+.btn-primary {
+  background: #A7BC5B !important;
+  border-color: #A7BC5B !important;
+}
+
+.page-container {
+  min-height: calc(100vh - 70px);
+}
+
+.crud-btn-group {
+  width: 35%;
+}
+
+@media only screen and (max-width: 768px) {
+  /* For mobile phones: */
+  .crud-btn-group {
+    width: 50%;
+  }
+}
+
+/* SCROLLBAR STYLE */
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

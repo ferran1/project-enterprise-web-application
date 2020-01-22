@@ -1,0 +1,23 @@
+.custom-border-shadow {
+  position: relative;
+}
+
+.custom-border-shadow:before, .custom-border-shadow:after {
+  z-index: -1;
+  position: absolute;
+  content: "";
+  bottom: 25px;
+  left: 10px;
+  width: 50%;
+  top: 80%;
+  max-width: 300px;
+  background: #777;
+  box-shadow: 0 35px 20px #777;
+  transform: rotate(-8deg);
+}
+
+.custom-border-shadow:after {
+  transform: rotate(8deg);
+  right: 10px;
+  left: auto;
+}

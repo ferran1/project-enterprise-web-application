@@ -1,0 +1,159 @@
+<!--Search and filter bar start-->
+<div class="row">
+  <div class="col-sm-12 col-md-8 col-lg-5 form-group">
+    <div class="col-sm-12 col-lg-8 form-row has-search float-left m-0 rounded-circle">
+      <span class="fa fa-search form-control-feedback"></span>
+      <input type="text"
+             class="form-control"
+             placeholder="{{CMSContent['HOME_SEARCH']}}"
+             onfocus="this.placeholder = ''"
+             (blur)="setPlaceholder($event)"
+             [(ngModel)]="searchQuery">
+    </div>
+    <div class="col-sm-12 my-2 form-row mx-auto float-left">
+      <div class="col-sm-12 col-md-4 float-left">
+        <label for="regionFilter" class="text-green-secondary">{{CMSContent['HOME_REGION_FILTER']}}</label>
+        <select name="regionSelectBox" id="regionFilter" class="custom-select" style="cursor: pointer" ngForm
+                [(ngModel)]="this.regionSearch">
+          <option value="All regions" selected>All regions</option>
+          <option value="EU_LEVEL">European Level</option>
+          <option value="NAT_LEVEL">National Level</option>
+          <option value="URBAN_LEVEL">Urban Level</option>
+        </select>
+      </div>
+      <!--      <select *ngIf="this.sessionService.userEmail" class="custom-select" style="cursor: pointer">-->
+      <div class="col-sm-12 col-md-4 float-left" *ngIf="sessionService.getToken() != null || undefined">
+        <label for="publicityFilter" class="text-green-secondary">{{CMSContent['HOME_PUBLICITY_FILTER']}}</label>
+        <select name="publicitySelectBox" id="publicityFilter" class="custom-select" style="cursor: pointer" ngForm
+                [(ngModel)]="this.publicitySearch">
+          <option value="All shared">All shared</option>
+          <option value="Public">Public shared</option>
+          <option>Group shared</option>
+          <option>Private shared</option>
+          <!--        TODO:: Implement a *ngIf after modifying User modal so that only users in a group can see this option-->
+        </select>
+      </div>
+      <button type="submit" class="btn btn-warning rounded filter-button float-left mt-auto col-sm-2"
+              (click)="onFilter()">{{CMSContent['HOME_FILTER_BUTTON']}}
+      </button>
+    </div>
+  </div>
+</div>
+<!--Search and filter bar end-->
+
+<!--Dataset overview list start-->
+<div class="row mt-1 mx-0">
+  <div class="col-sm-8 col-md-7 col-lg-4 mx-2" style="max-height: 400px;">
+    <table class="table table-bordered m-0 text-center">
+      <thead class="tablehead table-borderless">
+      <tr>
+        <th class="text-light bg-green-secondary h3">{{CMSContent['HOME_LIST_TITLE']}}
+                    <span class="custom-badge float-right"
+                          *ngIf="this.copyDatasets && this.searchQuery != ''">{{(this.copyDatasets | searchArrayName:
+                        [searchQuery, 'value']).length}}</span>
+        </th>
+      </tr>
+      </thead>
+      <tbody class="table-light" *ngIf="this.copyDatasets.length > 0">
+      <tr *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']: pT  |
+      paginate: {itemsPerPage: 10, currentPage: p}; let index = index;"
+          (click)="onSelection(index, dataset)"
+          class="mt-auto mb-auto">
+        <td>{{dataset.name}} <i class="fa fa-arrow-right float-right mt-1"></i></td>
+      </tr>
+      <tr *ngIf="datasets.length == 0">
+        <td><i>There are no datasets available</i></td>
+      </tr>
+      </tbody>
+    </table>
+    <!--<ul class="list-group">
+      <li *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']; let index = index;"
+          (click)="onSelection(index, dataset)" class="list-group-organisation list-group-organisation-action">
+        {{dataset.name}}
+      </li>
+    </ul>-->
+    <pagination-template #pT="paginationApi" *ngIf="datasets.length != 0" (pageChange)="p = $event">
+      <ul class="pagination justify-content-center">
+        <li class="page-item" [class.disabled]="pT.isFirstPage()">
+          <a class="page-link" (click)="pT.previous()">Previous</a></li>
+        <li class="page-item" [ngClass]="{'active': page.value == p}" *ngFor="let page of pT.pages"
+            [class.current]="pT.getCurrent() === page.value">
+          <a class="page-link" (click)="pT.setCurrent(page.value)">
+            <span>{{ page.label }}</span>
+          </a></li>
+        <li class="page-item" [class.disabled]="pT.isLastPage()">
+          <a class="page-link" (click)="pT.next()">Next</a></li>
+      </ul>
+    </pagination-template>
+  </div>
+
+  <div class="col">
+    <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>
+  </div>
+</div>
+<!--Dataset overview list end-->
+
+
+<!--OLD DATASET OVERVIEW LIST-->
+<!--<div class="row">-->
+<!--  <div class="col-sm-11 form-group mx-auto">-->
+<!--    <div class="col-sm-12 col-md-5 form-row has-search float-left mx-auto mt-4 rounded-circle">-->
+<!--      <span class="fa fa-search form-control-feedback"></span>-->
+<!--      <input type="text"-->
+<!--             class="form-control"-->
+<!--             placeholder="Search"-->
+<!--             onfocus="this.placeholder = ''"-->
+<!--             onblur="this.placeholder = 'Search'"-->
+<!--             [(ngModel)]="searchQuery">-->
+<!--    </div>-->
+<!--    <div class="col-sm-12 col-md-7 form-row mx-auto float-left">-->
+<!--      <div class="col-sm-12 col-md-5 float-left">-->
+<!--        <label for="regionFilter" class="text-white">Region filter</label>-->
+<!--        <select name="regionSelectBox" id="regionFilter" class="custom-select" style="cursor: pointer" ngForm-->
+<!--                [(ngModel)]="this.regionSearch">-->
+<!--          <option value="All regions" selected>All regions</option>-->
+<!--          <option value="European">European Level</option>-->
+<!--          <option value="National">National Level</option>-->
+<!--          <option value="Urban">Urban Level</option>-->
+<!--        </select>-->
+<!--      </div>-->
+<!--      &lt;!&ndash;      <select *ngIf="this.sessionService.userEmail" class="custom-select" style="cursor: pointer">&ndash;&gt;-->
+<!--      <div class="col-sm-12 col-md-5 float-left">-->
+<!--        <label for="publicityFilter" class="text-white">Publicity filter</label>-->
+<!--        <select name="publicitySelectBox" id="publicityFilter" class="custom-select" style="cursor: pointer" ngForm-->
+<!--                [(ngModel)]="this.publicitySearch">-->
+<!--          <option value="All shared">All shared</option>-->
+<!--          <option value="Public">Public shared</option>-->
+<!--          <option>Group shared</option>-->
+<!--          <option>Private shared</option>-->
+<!--          &lt;!&ndash;        TODO:: Implement a *ngIf after modifying User modal so that only users in a group can see this option&ndash;&gt;-->
+<!--        </select>-->
+<!--      </div>-->
+<!--      <button type="submit" class="btn btn-warning rounded filter-button float-left mt-auto mx-auto col-sm-2"-->
+<!--              (click)="onFilter()">Filter-->
+<!--      </button>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<div class="row mt-4 my-2 mx-0">-->
+<!--  <div class="col-sm-8 col-md-8 col-lg-4 mx-2" style="max-height: 400px;">-->
+<!--    <table class="table table-bordered m-0 text-center">-->
+<!--      <thead class="tablehead table-borderless">-->
+<!--      <tr>-->
+<!--        <th class="text-light font-weight-normal">Datasets</th>-->
+<!--      </tr>-->
+<!--      </thead>-->
+<!--      <tbody class="table-light" *ngIf="this.datasets$ | async">-->
+<!--      <tr *ngFor="let dataset of copyDatasets | searchArrayName: [searchQuery, 'value']; let index = index;"-->
+<!--          (click)="onSelection(index, dataset)">-->
+<!--        <td>{{dataset.name}}</td>-->
+<!--      </tr>-->
+<!--      </tbody>-->
+<!--    </table>-->
+<!--  </div>-->
+
+<!--  <div class="col">-->
+<!--    <app-dataset-detail [activeIndex]="activeIndex"></app-dataset-detail>-->
+<!--  </div>-->
+<!--</div>-->

@@ -1,0 +1,90 @@
+<div class="container mt-5" *ngIf="this.userCopy">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card text-black bg-white border-0" style="border-radius: 15px">
+        <div class="card-header text-center bg-green-secondary text-light">
+          <div>
+            <h3 class="font-weight-bold font-italic">
+              <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.surName || "")}}</h3>
+          </div>
+        </div>
+        <div class="card-body" style="font-size: 24px">
+          <!--          <h5 class="card-title">{{this.user.email}}</h5>-->
+
+          <form #myProfile="ngForm">
+            <!--            <div class="form-row">-->
+            <!--              <div class="form-group col-md-6">-->
+            <!--                <label for="firstName">Firstname</label>-->
+            <!--                <input type="text" id="firstName" name="firstname" class="form-control" [(ngModel)]="userCopy.firstName"-->
+            <!--                       (ngModelChange)="updateButtonToggle = false" placeholder="Enter your firstname">-->
+            <!--              </div>-->
+            <!--              <div class="form-group col-md-6">-->
+            <!--                <label for="surName">Surname</label>-->
+            <!--                <input type="text" id="surName" name="surname" class="form-control" [(ngModel)]="userCopy.surName"-->
+            <!--                       (ngModelChange)="updateButtonToggle = false" placeholder="Enter your surname">-->
+            <!--              </div>-->
+            <!--            </div>-->
+
+            <div class="form-group">
+              <div *ngIf="!updateButtonToggle">
+                <label for="firstName"></label>
+                <i class="fa fa-user-circle float-left mt-1 mr-1"></i>
+                <input type="text" id="firstName" name="firstname" class="form-control float-left "
+                       style="max-width: 100px" [(ngModel)]="userCopy.firstName"
+                       (ngModelChange)="_updateButtonToggle = false"
+                       [placeholder]="CMSContent['PROFILE_FIRSTNAME_EDIT']">
+                <label for="surName"></label>
+                <input type="text" id="surName" name="surname" class="form-control float-left" style="max-width: 100px"
+                       [(ngModel)]="userCopy.surName" (ngModelChange)="_updateButtonToggle = false"
+                       [placeholder]="CMSContent['PROFILE_SURNAME_EDIT']">
+                <button *ngIf="!this.updateButtonToggle" type="button" id="cancelButton"
+                        class="btn name-edit-button float-left ml-1 my-auto" style="font-size: large"
+                        [disabled]="this.updateButtonToggle" (click)="_updateButtonToggle = true"><i
+                  class="fa fa-times-circle"></i>
+                </button>
+                <button *ngIf="!this.updateButtonToggle" type="button" class="btn btn-primary float-left ml-1"
+                        id="updateButton"
+                        [disabled]="this.updateButtonToggle || this.myProfile.pristine"
+                        (click)="onUpdateUser()">{{CMSContent['PROFILE_UPDATE_BUTTON']}}
+                </button>
+              </div>
+              <div *ngIf="updateButtonToggle" id="full-name" class="">
+                <i class="fa fa-user-circle"></i> {{(user.firstName || "") + " " + (user.surName || "")}}
+                <span class="border-left" style="height: 100%;border: 1px solid #202020"></span>
+                <button class="btn p-0 ml-1 name-edit-button" style="opacity: 0.8; box-shadow: none !important;"
+                        (click)="this._updateButtonToggle = false">
+                  <i class="fa fa-edit" style="font-size: 18px">Edit</i>
+                </button>
+              </div>
+            </div>
+            <div class="form-group">
+              <div id="email" class="">
+                <i class="fa fa-envelope"></i> {{userCopy.email}}</div>
+            </div>
+            <div class="form-group" *ngIf="userCopy.adminOfOrganisations">
+              <div id="adminOfOrganisation" class="" *ngFor="let aOfOrganisation of userCopy.adminOfOrganisations;
+              let index = index">
+                <i class="fa fa-building"></i> {{aOfOrganisation.name}}</div>
+            </div>
+              <div id="organisation" class="" *ngFor="let organisation of userCopy.organisations; let index = index">
+                <i class="fa fa-building"></i> {{organisation.name}}</div>
+
+            <div class="form-group">
+              <div id="uploads" class="">
+                {{CMSContent['PROFILE_UPDATE_COUNT']}} {{datasetService.getMyDatasets().length}}</div>
+            </div>
+
+          </form>
+
+          <!--            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editModal"-->
+          <!--                    (click)="onEditButtonClick()" style="float:right;">-->
+          <!--              Edit Profile-->
+          <!--            </button>-->
+
+          <!--            <app-edit-profile *ngIf="editProfileIsClicked"></app-edit-profile>-->
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

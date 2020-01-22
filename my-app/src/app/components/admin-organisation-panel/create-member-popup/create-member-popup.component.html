@@ -1,0 +1,100 @@
+<!-- Modal -->
+<div class="modal fade" #createMemberModal id="createMemberModal" tabindex="-1" role="dialog" aria-labelledby="createMemberModalLabel"
+     data-backdrop="false" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h5 class="modal-title" id="createMemberModalLabel" *ngIf="receivedSelectedOrg">Create and add member to organisation: {{ receivedSelectedOrg.name }} </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form autocomplete="off" #formElement="ngForm" (keydown.enter)="$event.preventDefault()" novalidate>
+          <div class="form-row">
+          <label for="firstName">First name</label><br>
+          <input type="text"
+                 required minlength="2"
+                 class="form-control"
+                 name="firstName"
+                 id="firstName"
+                 #firstName="ngModel"
+                 ngModel>
+          </div>
+          <br>
+          <div *ngIf="!firstName.valid && firstName.touched" class="alert alert-danger">
+            <p><span>Please enter a valid first name</span></p>
+          </div>
+          <div class="form-row">
+          <label for="surName">Surname</label><br>
+          <input type="text"
+                 required minlength="2"
+                 class="form-control"
+                 name="surName"
+                 id="surName"
+                 #surName="ngModel"
+                 ngModel>
+          </div>
+          <br>
+          <div *ngIf="!surName.valid && surName.touched" class="alert alert-danger">
+            <p><span>Please enter a valid surname</span></p>
+          </div>
+          <div class="form-row">
+          <label for="email">Email address*</label><br>
+          <input type="search"
+                 class="form-control"
+                 name="email"
+                 id="email"
+                 autocomplete="off"
+                 pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$"
+                 #email="ngModel"
+                 ngModel
+                 required>
+          </div>
+          <br>
+          <div class="alert alert-danger" [hidden]="email.valid || email.untouched">
+            <div  *ngIf="email.errors && email.errors.required">
+              <p><span>Email is required</span></p>
+            </div>
+            <div *ngIf="email.errors && email.errors.pattern">
+              <p><span>Email is invalid</span></p>
+            </div>
+          </div>
+          <div class="form-row">
+          <label for="password">Password*</label><br>
+          <input type="password"
+                 required minlength="6"
+                 class="form-control"
+                 name="password"
+                 id="password"
+                 autocomplete="new-password"
+                 #password="ngModel"
+                 ngModel>
+          </div>
+          <br>
+          <div *ngIf="!password.valid && password.touched" class="alert alert-danger">
+            <p><span>Please enter a valid password (Password should contain at least 6 characters)</span></p>
+          </div>
+
+          <div class="form-row">
+          <label for="password">Confirm password*</label><br>
+          <input type="password"
+                 required minlength="6"
+                 class="form-control"
+                 name="passwordCheck"
+                 id="passwordCheck"
+                 #passwordCheck="ngModel"
+                 ngModel>
+          </div>
+          <br>
+          <br>
+
+          <button type="submit" class="btn btn-primary" data-dismiss="modal" (click)="onSubmit(formElement)"
+                  [disabled]="formElement.invalid">
+            Create and add member
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

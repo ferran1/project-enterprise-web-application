@@ -1,0 +1,62 @@
+<app-create-organisation-popup *ngIf="createIsClicked" (savedOrganisation)="saveRequest($event)"
+                               (closed)="createPopUpIsClosed()"></app-create-organisation-popup>
+<app-edit-organisation-popup *ngIf="editIsClicked" (savedOrganisation)="saveRequest($event)"
+                             (closed)="editPopUpIsClosed()"></app-edit-organisation-popup>
+
+<div class="row">
+  <!-- <div class="card w-100 mb-3">
+    <div class="card-header">
+      <div class="row" style="height:38px">
+        <p class="pl-3 card-title my-auto">
+          Organisation filter
+        </p>
+      </div>
+    </div>
+    <div class="card-body">
+      <label for="orgSearchFilter">Search</label>
+      <input id="orgSearchFilter" type="text" class="form-control" [(ngModel)]="searchFilter"
+        (ngModelChange)="checkIfListEmpty()">
+    </div>
+  </div> -->
+  <div class="card w-100">
+    <div class="card-header">
+      <div class="row">
+        <p class="pl-3 card-title my-auto">
+          Organisations
+        </p>
+
+        <span class="ml-auto mr-3 btn-group">
+					<button class="btn btn-primary" id="createOrganizationButton" data-target="#createOrganizationModal"
+                  (click)="onCreateButtonClick()" data-toggle="modal">
+						<i class="fa fa-plus fa-lg"></i>
+					</button>
+				</span>
+        <input id="orgSearchFilter" type="text" class="form-control mt-3" [(ngModel)]="searchFilter"
+               placeholder="Search">
+      </div>
+    </div>
+    <ul class="orgList list-group list-group-flush">
+      <li class="list-group-item p-2 pl-3" *ngIf="this.organisations.length == 0">
+				<span class="row mx-1 align-middle">
+					<p class="my-auto">No organisations available</p>
+				</span>
+      </li>
+      <li class="admin-organisation-item list-group-item p-2 pl-3"
+          *ngFor="let organisation of this.aOrganisationService.getOrganisations() | searchArrayName: [searchFilter]; index as index">
+				<span class="row mx-1 align-middle">
+					<p class="my-auto text-truncate col-md-5 col-lg-7" data-toggle="tooltip" data-placement="top" title="{{organisation.name}}">{{organisation.name}}</p>
+					<span class="btn-group crud-btn-group col-md-3 col-lg-5">
+						<button class="btn btn-primary" (click)="onEditClick(index)" data-toggle="modal"
+                    data-target="#editOrgModal">
+
+							<i class="fa fa-edit fa-lg"></i>
+						</button>
+						<button class="btn btn-danger" (click)="onDeleteClick(organisation)">
+							<i class="fa fa-trash fa-lg"></i>
+						</button>
+					</span>
+				</span>
+			</li>
+		</ul>
+	</div>
+  </div>

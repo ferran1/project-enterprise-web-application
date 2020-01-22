@@ -1,0 +1,14 @@
+@media only screen and (max-width: 768px) {
+	.admin-columns *:not(:first-child) {
+		margin-top: 20px;
+	}
+	
+	.admin-columns:last-child {
+		margin-bottom: 10px;
+	}
+
+	app-admin-organisations {
+		margin-left: 0px !important;
+		margin-right: 0px !important;
+	}
+}

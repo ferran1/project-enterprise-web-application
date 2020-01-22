@@ -1,0 +1,105 @@
+<div class="modal fade" #editModal id="editMetaModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel"
+     data-backdrop="static" data-keyboard="false" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit Metadata</h5>
+        <button type="button" class="close" (click)="onClose()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()" *ngIf="editingDataset">
+          <div class="form-row my-2">
+            <div class="form-group col-12">
+            <label for="titleInput">Title</label>
+            <input
+              [(ngModel)]="editingDataset.name"
+              required minlength="5"
+              type="text"
+              name="titleInput"
+              class="form-control"
+              id="titleInput"
+              placeholder='Title'
+              ngModel>
+            </div>
+            <div class="form-group col-12">
+              <label for="descriptionInput">Description</label>
+              <textarea
+                [(ngModel)]="editingDataset.description"
+                class="form-control"
+                id="descriptionInput"
+                name="descriptionInput"
+                placeholder='E.g. There are many households which produce their own electricity'
+                ngModel></textarea>
+            </div>
+            <div class="form-group col-md-5 ml-0">
+              <label for="publicityInput">Publicity</label>
+              <select [(ngModel)]="editingDataset.publicity" class="form-control" name="publicityInput"
+                      id="publicityInput" required>
+                <!--<option class=+"form-control" *ngFor="let publicity of keys(Publicity)" >
+                  {{Publicity[publicity]}}</option>-->
+                <option value="PUBLIC">Public</option>
+                <option value="PRIVATE">Private</option>
+                <option value="GROUP" *ngIf="userBelongsToOrganisation">Group</option>
+              </select>
+            </div>
+            <div class="form-group col-md-7 ml-0" *ngIf="editingDataset.publicity == 'GROUP'">
+              <label>Groups</label>
+              <ng-select [items]="datasetUserOrganisations"
+                         required
+                         #selectBox="ngModel"
+                         bindLabel="name"
+                         placeholder="Select organisation(s)"
+                         appendTo="body"
+                         name="organisationsSelect"
+                         [multiple]="true"
+                         [closeOnSelect]="false"
+                         [(ngModel)]="editingDataset.organisations">
+              </ng-select>
+              <div *ngIf="selectBox.touched && selectBox.hasError('required')" class="alert alert-danger">
+                <p>You must select one or more groups</p>
+              </div>
+            </div>
+            <div class="form-group col-3">
+              <label for="yearInput">Year</label>
+              <select [(ngModel)]="editingDataset.year" class="form-control" id="yearInput" name="yearInput">
+                <option *ngFor="let year of listOfYears" [selected]="true ? year == editingDataset.year : 2000">
+                  {{year}}</option>
+              </select>
+            </div>
+            <div class="form-group col-6">
+              <label for="regionInput">Region</label>
+              <select [(ngModel)]="editingDataset.region" class="form-control" name="regionInput"
+                      id="regionInput" required>
+                <!--<option class="form-control" *ngFor="let region of keys(RegionLevel)">
+                  {{RegionLevel[region]}}</option>-->
+                <option value="NAT_LEVEL">National</option>
+                <option value="URBAN_LEVEL">Urban</option>
+                <option value="EU_LEVEL">European</option>
+              </select>
+            </div>
+            <div class="form-group col-12" *ngIf="this.activatedRoute.component.toString().includes('AdminPanelComponent')">
+              <label for="userLabel">Uploaded by</label>
+              <input
+                [(ngModel)]="editingDataset.user.email"
+                required minlength="5"
+                type="text"
+                name="userLabel"
+                class="form-control"
+                id="userLabel"
+                disabled
+                ngModel>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="onClose()" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="saveChanges()"
+                    [disabled]="formElement.invalid">Save Changes
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

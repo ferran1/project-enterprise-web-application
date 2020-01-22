@@ -1,0 +1,68 @@
+<div class="modal fade" #editModal id="createUserModal" tabindex="-1" role="dialog"
+	aria-labelledby="createUserModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="createUserLabel">Create User</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClose()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form #formElement="ngForm" (keydown.enter)="$event.preventDefault()">
+					<div class="form-row">
+						<label for="firstNameInput">First name</label>
+						<input type="text" name="firstNameInput" class="form-control" id="firstNameInput" placeholder='Firstname' ngModel>
+					</div>
+					<div class="form-row">
+						<label for="surNameInput">Surname</label>
+						<input type="text" name="surNameInput" class="form-control"
+							id="surNameInput" placeholder='Surname' ngModel>
+					</div>
+					<div class="form-row">
+						<label for="emailInput">Email*</label>
+						<input required type="email" name="emailInput"
+							class="form-control" id="emailInput" #email="ngModel" pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" placeholder='Email' ngModel email>
+					</div>
+          <div class="alert alert-danger" [hidden]="email.valid || email.untouched">
+            <div  *ngIf="email.errors && email.errors.required">
+              <p><span>Email is required</span></p>
+            </div>
+            <div *ngIf="email.errors && email.errors.pattern">
+              <p><span>Email is invalid</span></p>
+            </div>
+          </div>
+					<div class="form-row">
+						<label for="passwordInput">Password*</label>
+						<input required type="text" name="passwordInput"  minlength="6"
+							class="form-control" #password="ngModel" id="passwordInput" placeholder='password' ngModel>
+					</div>
+          <div *ngIf="!password.valid && password.touched" class="alert alert-danger">
+            <p><span>Please enter a valid password (Password should contain at least 6 characters)</span></p>
+          </div>
+					<!-- <div class="form-row">
+						<label for="orgInput">Organisation</label>
+						<select ngModel class="form-control" name="orgInput"
+							id="orgInput">
+							<option *ngFor="let org of this.aOrganisationService.getOrganisations()" class="form-control"
+								value={{org.orgId}}>
+								{{org.name}}</option>
+						</select>
+					</div> -->
+					<div class="form-row">
+						<div class="column">
+							<label class="my-1" for="adminInput">Administrator</label>
+							<input class="ml-2 my-1" type="checkbox" id="adminInput" name="adminInput" ngModel>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Close</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal"
+							(click)="onSubmit(formElement)" [disabled]="formElement.invalid">Create
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

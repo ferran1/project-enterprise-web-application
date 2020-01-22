@@ -1,0 +1,12 @@
+.content {
+  min-height: 100%;
+  background-image: url("../assets/images/Green-Nature-Macro-Ginkgo-Foliage-2560-x-1600.jpg");
+  /*background-color: #97CB3B;*/
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+.container-fluid {
+  height: 100% !important;
+}

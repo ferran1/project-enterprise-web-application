@@ -1,0 +1,98 @@
+<div class="ml-1 mt-2" *ngIf="activeIndex && editedDataset">
+
+  <div class="col-sm-12 col-md-12 col-lg-8 col-xl-7 float-left" id="visualization">
+    <div class="card mb-2 w-100">
+      <div class="card-header">
+        <h3 class="d-inline">{{CMSContent["HOME_CHART_TITLE"]}}</h3>
+        <a [href]="url" download target="_blank" title="Download file in csv or pdf format"
+           class="btn btn-primary float-right">{{CMSContent["HOME_CHART_DOWNLOAD"]}}  <i class="fa fa-download"></i></a>
+      </div>
+
+      <div *ngIf="editedDataset.fileType == 'csv'">
+        <canvas
+          baseChart [chartType]="editedDataset.chart.type" [datasets]="[editedDataset.chart]"
+          [labels]="editedDataset.chartLabels" width="400" height="350"></canvas>
+      </div>
+      <div *ngIf="editedDataset.fileType == 'pdf'" >
+        <pdf-viewer style="display:block"
+          [src]="url"
+          [render-text]="true" [original-size]="false"
+          [show-all]="false" [(page)]="this.pdfPageIndex" (after-load-complete)="callBackFn($event)" ></pdf-viewer>
+        <div class="row justify-content-center">
+          <button class="btn btn-primary float-right fa fa-arrow-left" (click)="onPDFPageNavClick(0)">
+          </button>
+          <button class="btn btn-primary float-left fa fa-arrow-right" (click)="onPDFPageNavClick(1)">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-12 col-md-12 col-lg-4 col-xl-4 float-left pt-1">
+    <div class="card mb-2 w-100">
+      <div class="card-header"><h3>{{CMSContent["HOME_DETAIL_TITLE"]}}</h3></div>
+      <div class="card-body p-1 m-0">
+        <h5 class="card-title"></h5>
+        <div class="card-text">
+          <form class="rounded p-0 m-0">
+            <div class="form-group">
+              <label for="datasetName">{{CMSContent["HOME_DETAIL_NAME"]}}</label>
+              <input type="text" class="form-control bg-white border-success" name="d-name" [(ngModel)]="editedDataset.name" id="datasetName"
+                     placeholder="Dataset name" readonly>
+            </div>
+            <div class="form-group">
+              <label for="datasetDescription">{{CMSContent["HOME_DETAIL_DESC"]}}</label>
+              <textarea class="form-control bg-white border-success" [(ngModel)]="editedDataset.description"
+                     name="description" id="datasetDescription" style="min-height: 100px"
+                     placeholder="There is no description for this dataset" readonly>
+              </textarea>
+            </div>
+            <div class="form-group">
+              <label for="datasetRegion">{{CMSContent["HOME_DETAIL_REGION"]}}</label>
+              <!--select class="form-control btn-outline-success" [(ngModel)]="editedDataset.region" name="d-region"
+                      id="datasetRegion">
+                <option class="form-control" *ngFor="let region of keys(regionLevel)">
+                  {{regionLevel[region]}}
+                </option>
+              </select>-->
+              <input type="text" class="form-control bg-white border-success"
+                     [(ngModel)]="regionLevel[editedDataset.region]"
+                     name="region" id="datasetRegion" readonly>
+            </div>
+            <div class="form-group">
+              <label for="publicityOption">{{CMSContent["HOME_DETAIL_PUBLICITY"]}}</label>
+              <!--<select class="form-control btn-outline-success" [(ngModel)]="editedDataset.publicity" name="p-option"
+                      id="publicityOption">
+                <option class="form-control" *ngFor="let publicity of keys(publicityOptions) ">
+                  {{publicityOptions[publicity]}}
+                </option>
+              </select>-->
+              <input type="text" class="form-control bg-white border-success"
+                     [(ngModel)]="publicityOptions[editedDataset.publicity]"
+                     name="publicity" id="publicityOption" readonly>
+            </div>
+            <div class="form-group">
+              <label for="displayYear">{{CMSContent["HOME_DETAIL_YEAR"]}}</label>
+              <!--<select readonly class="form-control btn-outline-success" [(ngModel)]="editedDataset.year" name="year" id="yearOptions">
+                <option class="form-control" *ngFor="let index of listOfYears" >
+                  {{index}}
+                </option>
+                 </select>-->
+              <input type="text" readonly class="form-control bg-white border-success" [(ngModel)]="editedDataset.year"
+                     name="year" id="displayYear">
+            </div>
+            <div class="form-group">
+              <label for="userName">{{CMSContent["HOME_DETAIL_BY"]}}</label>
+              <input type="text" class="form-control bg-white border-success" name="userMail" id="userName"
+                     [ngModel]="editedDataset.user.email" readonly>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

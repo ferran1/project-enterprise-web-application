@@ -1,0 +1,214 @@
+<!-- Modal -->
+<div class="modal fade" #uploadModal id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="uploadModalLabel"
+     data-backdrop="false" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h5 class="modal-title" id="uploadModalLabel">Upload dataset</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClose()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form #formElement="ngForm" (keydown.enter)="$event.preventDefault()"
+              novalidate>
+          <h5 class="text-center text-light bg-green-secondary" style="border-radius: 10px">Dataset visualization</h5>
+          <div class="form-group mx-3">
+            <label for="uploadModalControlFile1">Choose dataset file <span
+              class="font-italic small">(Accepted format: <abbr
+              title="comma separated values">.csv</abbr>, <abbr
+              title="portable document format">.pdf</abbr>)</span></label>
+            <input type="file" class="form-control-file pt-2"
+                   (change)="uploadListener($event)"
+                   id="uploadModalControlFile1" name="fileInput"
+                   accept=".csv, .pdf"
+                   ngModel
+                   required>
+          </div>
+          <div class="alert alert-success alert-dismissible fade show my-4" role="alert"
+               *ngIf="this.file && this.fileTypeUploaded == 'pdf'">
+            Successful pdf upload
+            <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+          </div>
+
+
+          <div id="chartConfiguration" class="form-row justify-content-center my-4" *ngIf="fileTypeUploaded == 'csv'">
+            <div class="card mx-4" id="headerCard">
+              <div class="card-header"><h5>Chart configuration</h5></div>
+              <div class="card-body">
+                <div class="form-group collapse show" id="chartOptions">
+                  <label for="xAxisOptions">X axis</label>
+                  <div class="form-group form-row mb-2">
+                    <select (change)="onChanges()" [(ngModel)]="xAxisInputs[index]"
+                            *ngFor="let input of xAxisInputs; index as index "
+                            class="form-control my-1 col-9" id="xAxisOptions" name="xAxis"
+                            required>
+                      <option *ngFor="let header of headers; let i = index" [ngValue]="i"
+                              name="xOption">{{i}}. {{header}}</option>
+                    </select>
+                    <button type="button" [ngClass]="removeXAxesToggle ? 'btn-danger' : 'btn-primary'"
+                            class="btn btn-sm ml-3" id="addXAxes" (click)="onAddXAxes()"
+                            title="Add a second x-axis that defines your data">
+                      <i class="fa" [ngClass]="removeXAxesToggle ? 'fa-minus' : 'fa-plus'"></i>
+                    </button>
+                  </div>
+                  <label for="yAxisOptions">Y axis</label>
+                  <div class="form-group form-row">
+                    <select (change)="onChanges()" [(ngModel)]="yAxisInput" class="form-control my-1 col-9"
+                            name="yAxis" id="yAxisOptions" required>
+                      <option *ngFor="let header of headers; let i = index" [ngValue]="i"
+                              name="yOption">{{i}}. {{header}}</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="chartType">Chart type</label>
+                    <select [(ngModel)]="chartType" id="chartType" name="chartTypeInput"
+                            class="form-control col-md-4 my-1">
+                      <option value="bar">Bar</option>
+                      <option value="line">Line</option>
+                      <option value="pie" [disabled]="xAxisInputs.length == 2">Pie</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="alert alert-success alert-dismissible fade show" role="alert"
+                       *ngIf="this.csvData && this.csvData.length < this.MAX_RECORDS">
+                    Successful csv file upload: {{this.csvData.length}} records have been parsed
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                  </div>
+                  <div class="alert alert-warning alert-dismissible fade show" role="alert"
+                       *ngIf="this.csvData && this.csvData.length > this.MAX_RECORDS">
+                    Warning: {{this.csvData.length}} records have been parsed from your csv file, this large number of records may impact
+                    the visualization!
+                    <button type="button" class="close" data-dismiss="alert" aria-label="close">&times;</button>
+                  </div>
+                  <p class="border border-success rounded p-2" *ngIf="!confirmToggle">
+                    {{CMSContent["UPLOAD_POPUP_CHART_INFO"]}}</p>
+                  <button type="button" class="btn float-left" data-toggle="collapse" data-target="#chartOptions"
+                          aria-expanded="false" aria-controls="headerOptions" (click)="onConfirm()"
+                          [innerHTML]="confirmToggle ? 'Change headers' : 'Confirm' "
+                          [ngClass]="confirmToggle ? 'btn-outline-danger' : 'btn-primary'"
+                          [disabled]="!validationToggle"></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <h5 class="text-center text-light bg-green-secondary" style="border-radius: 10px">Metadata</h5>
+          <div class="form-row">
+            <label for="titleInput">Title</label>
+            <input
+              required minlength="5"
+              type="text"
+              class="form-control"
+              id="titleInput"
+              name="titleInput"
+              placeholder="Title"
+              [(ngModel)]="nameInput"
+              #title="ngModel"
+              ngModel>
+            <div *ngIf="title.hasError('minlength') && !title.hasError('required')" class="alert alert-danger">
+              <p><span>Title should contain atleast 5 characters</span></p>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="descriptionInput">Description</label>
+            <textarea
+              class="form-control"
+              id="descriptionInput"
+              name="descriptionInput"
+              [(ngModel)]="descriptionInput"
+              placeholder='E.g. There are many households which produce their own electricity'
+              ngModel></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-6">
+              <label for="publicityInput">Publicity</label>
+              <select
+                id="publicityInput"
+                class="form-control"
+                name="publicityInput"
+                [(ngModel)]="publicityInput"
+                ngModel
+                required>
+                <option>Private</option>
+                <option *ngIf="organisationsOfUser">Group</option>
+                <option>Public</option>
+              </select>
+            </div>
+            <div class="form-group col-md-6" *ngIf="publicityInput == 'Group'">
+              <label>Groups</label>
+              <ng-select [items]="organisationsOfUser"
+                         required
+                         #selectBox="ngModel"
+                         bindLabel="name"
+                         placeholder="Select organisation(s)"
+                         appendTo="body"
+                         name="organisationsSelect"
+                         [multiple]="true"
+                         [closeOnSelect]="false"
+                         [(ngModel)]="selected"
+                         (change)="onChangeOrganisationSelect()">
+                <ng-template ng-header-tmp>
+
+                  <div>
+                    <button class="btn btn-link"
+                            (click)="onSelectAllOrganisations()">Select All
+                    </button>
+                    <button class="btn btn-link"
+                            (click)="onClearAllOrganisations()">Clear All
+                    </button>
+                  </div>
+
+                </ng-template>
+              </ng-select>
+              <div *ngIf="selectBox.touched && selectBox.hasError('required')" class="alert alert-danger">
+                <p>You must select one or more groups</p>
+              </div>
+            </div>
+            <div class="form-group col-md-12">
+              <label for="yearOptions">Year</label>
+              <select [(ngModel)]="yearInput" class="form-control" id="yearOptions" name="years">
+                <option [ngValue]="year" *ngFor="let year of listOfYears"
+                        name="yearOption">{{year}}</option>
+              </select>
+            </div>
+          </div>
+
+
+          <div class="form-row mt-2">
+            <label class="form-check-label col-4">Regional level </label>
+            <div class="form-group col-8" id="regionOptions">
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="Urban"
+                       name="regionOptions"
+                       id="urbanLevel">
+                <label class="form-check-label" for="urbanLevel">Urban</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="European"
+                       name="regionOptions"
+                       id="europeanLevel">
+                <label class="form-check-label" for="europeanLevel">European</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" [(ngModel)]="regionInput" value="National"
+                       name="regionOptions"
+                       id="nationalLevel">
+                <label class="form-check-label" for="nationalLevel">National</label>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Close</button>
+            <button type="submit" class="btn btn-primary" (click)="onSubmit()" data-dismiss="modal"
+                    [disabled]="formElement.invalid || confirmToggle == false">Upload
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

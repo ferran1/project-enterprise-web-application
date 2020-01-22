@@ -1,0 +1,89 @@
+td:hover {
+  transition: .35s ease-in-out;
+  background: rgb(209,209,209);
+  cursor: pointer;
+}
+
+@media (max-width: 991.98px) {
+  .small-screen {
+    margin: auto !important;
+  }
+}
+
+.tablehead {
+  /*background: linear-gradient(to right, #dce35b, #45b649); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+  /*background: linear-gradient(to right, #8e9eab, #eef2f3); !* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ *!*/
+  background-color: #202020;
+}
+
+.form-control {
+  border: 0 solid #3f3f3f;
+  border-radius: 100px 100px 100px 100px;
+
+  /*transition: border-color 2s ease-in-out;*/
+}
+
+.form-control:focus {
+  box-shadow: none;
+  /*border: 0 solid black;*/
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
+}
+
+.custom-badge {
+  display: inline-block;
+  min-width: 10px;
+  padding: 3px 7px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  vertical-align: baseline;
+  text-align: center;
+  background-color: #777;
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 767px) {
+  .filter-button {
+    margin-top: 20px !important;
+    width: 50% !important;
+  }
+}
+
+
+/* Table */
+
+.table-fixed tbody {
+  height: 300px;
+  overflow-y: auto;
+  width: 100%;
+}
+
+.table-fixed thead,
+.table-fixed tbody,
+.table-fixed tr,
+.table-fixed td,
+.table-fixed th {
+  display: block;
+}
+
+.table-fixed tbody td,
+.table-fixed tbody th,
+.table-fixed thead > tr > th {
+  float: left;
+  position: relative;
+}

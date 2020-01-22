@@ -1,0 +1,50 @@
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="editModalLabel">Edit User</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="onClose()">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<form class="editUserForm" #formElement="ngForm" (keydown.enter)="$event.preventDefault()" *ngIf="editingUser">
+					<div class="form-row">
+						<label for="firstNameInput">Firstname</label>
+						<input [(ngModel)]="editingUser.firstName" type="text"
+							name="firstNameInput" class="form-control" id="firstNameInput" placeholder='Firstname' ngModel>
+					</div>
+					<div class="form-row">
+						<label for="surNameInput">Surname</label>
+						<input [(ngModel)]="editingUser.surName" type="text"
+							name="surNameInput" class="form-control" id="surNameInput" placeholder='Surname' ngModel>
+					</div>
+					<div class="form-row">
+						<label for="emailInput">Email*</label>
+						<input [(ngModel)]="editingUser.email" required type="email"
+							name="emailInput" class="form-control" id="emailInput" placeholder='Email' ngModel email>
+					</div>
+					<!-- <div class="form-row">
+						<label for="orgInput">Organisation</label>
+						<select [(ngModel)]="editingUser.organisation" ngModel class="form-control" name="orgInput" id="orgInput">
+							<option *ngFor="let org of this.aOrgService.getOrganisations()" class="form-control" value={{org.orgId}}>
+							{{org.name}}</option>
+						</select>
+					</div> -->
+					<div class="form-row">
+						<div class="column">
+							<label class="my-1" for="adminInput">Administrator</label>
+							<input class="ml-2 my-1" type="checkbox" id="adminInput" name="adminInput" [(ngModel)]="editingUser.isAdmin" ngModel>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="onClose()">Close</button>
+						<button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onSaveChanges()"
+							[disabled]="formElement.invalid">Save Changes
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

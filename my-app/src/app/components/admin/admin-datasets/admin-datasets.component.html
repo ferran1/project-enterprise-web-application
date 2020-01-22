@@ -1,0 +1,59 @@
+<app-edit-metadata-popup *ngIf="editIsClicked" (savedDataset)="saveRequest($event)" (closingToggle)="editPopUpIsClosed()"></app-edit-metadata-popup>
+<app-view-dataset-popup></app-view-dataset-popup>
+<!-- Open the Edit pop-up when an edit button is clicked -->
+
+<div class="row">
+	<!-- <div class="card w-100 mb-3">
+		<div class="card-header">
+			<div class="row" style="height:38px">
+				<p class="pl-3 card-title my-auto">
+					Dataset filter
+				</p>
+			</div>
+		</div>
+		<div class="card-body">
+			<label for="datasetSearchFilter">Search</label>
+
+		</div>
+	</div> -->
+	<div class="card w-100">
+		<div class="card-header">
+			<div class="row">
+				<p class="pl-3 card-title my-auto">
+					Datasets
+				</p>
+				<span class="ml-auto mr-3 btn-group">
+					<input type="button" name="" class="btn">
+				</span>
+				<input id="datasetSearchFilter" type="text" class="form-control mt-3" [(ngModel)]="searchFilter"
+					(ngModelChange)="checkIfListEmpty()" placeholder="Search">
+			</div>
+		</div>
+		<ul class="dataList list-group list-group-flush">
+			<li class="list-group-item p-2 pl-3" *ngIf="this.datasets.length == 0">
+				<span class="row mx-1 align-middle">
+					<p class="my-auto">No datasets available</p>
+				</span>
+			</li>
+
+			<li class="admin-dataset-item list-group-item p-2 pl-3" *ngFor="let item of datasets |
+			searchArrayName: [searchFilter, 'name']; index as index">
+				<span class="row mx-1 align-middle">
+					<p class="my-auto text-truncate col-md-5 col-lg-7" data-toggle="tooltip" data-placement="top" title="{{item.name}}">{{item.name}}</p>
+					<div class="btn-group crud-btn-group col-md-3 col-lg-5">
+            <button class="btn btn-info fa fa-bar-chart" data-toggle="modal" data-target="#viewDatasetModal"
+                    (click)="onViewDataset(item)">
+            </button>
+						<button class="btn btn-primary" data-toggle="modal" data-target="#editMetaModal"
+							(click)="onEditButtonClick(item)">
+							<i class="fa fa-edit fa-lg"></i>
+						</button>
+						<button class="btn btn-danger" (click)="onDeleteClick(item)">
+							<i class="fa fa-trash fa-lg"></i>
+						</button>
+					</div>
+				</span>
+			</li>
+		</ul>
+	</div>
+</div>

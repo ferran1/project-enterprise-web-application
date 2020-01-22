@@ -1,0 +1,8 @@
+.form-row {
+  margin-left: 0px;
+}
+
+form.ng-untouched.ng-pristine.ng-valid .form-group {
+  margin-top: 5px;
+  margin-bottom: 0px;
+}
