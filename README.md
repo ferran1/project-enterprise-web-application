@@ -9,8 +9,8 @@ After installing NPM you need to install the **Angular CLI**. Open your terminal
 
     > npm install -g @angular/cli
 
-### Step 2: downloading the application to your local machine
-Clone the project: Clone the project: https://github.com/ferran1/Project-EWA.git
+### Step 2: Clowning the project
+Clone the project: https://github.com/ferran1/Project-EWA.git
 
 ### Step 3: Running the application
 
