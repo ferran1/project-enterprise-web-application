@@ -18,17 +18,14 @@ If everything went succesful, you now have the Angular CLI installed globally on
 
     > ng serve
 
-Now we will install the necessary  to run the Spring Boot application. One of the neccesary dependencies to run the Spring is to install **Java** on your computer. You can get the java from [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
-The other dependency that is required is Maven and can be install [here](https://maven.apache.org/install.html) or you can use the integrated Maven of your IDE.
+Now we will install the necessary to run the Spring Boot application. One of the neccesary dependencies to run the Spring is to install **Java** on your computer. You can get Java from [here](http://www.oracle.com/technetwork/java/javase/downloads/index.html).
+The other dependency that is required is Maven and can be installed [here](https://maven.apache.org/install.html) or you can use the integrated Maven of your IDE.
 
 If everything went succesfully until this point, you are ready to start the Spring Boot application. You can start the Spring application by running the ***main*** thread in the
 *ServerApplication* class.
 
-# Running the unit tests
-*We recommend to finish the installation guide before trying to run the test
-
 #### To run the front-end unit tests: 
-1. make sure you have the angular CLI installed(See step 1 of the installation guide)
+1. Make sure you have the angular CLI installed(See step 1 of the installation guide)
 2. Open a commandline tool(e.g. CMD, Powershell, git bash)
 3. Change the working directory to the location of the angular application(e.g. cd cd C:/projects/project-ewa/my-app/)
 4. Type 'ng test' in the commandline and press enter
