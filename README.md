@@ -33,11 +33,11 @@ If everything went succesfully until this point, you are ready to start the Spri
 #### To run the back-end unit tests: 
 1. make sure their is a Java version 11 or above is installed
 
-##### Intelij
-2. Open the server map as a intelij project
+##### Intellij
+2. Open the server map as a intellij project
 3. Make sure the maven pom.xml dependencies are installed
 4. Expand the file structure until src>test>java is visible
-5. Right click on the java folder and click  'run all tests'
+5. Right click on the Java folder and click 'run all tests'
 
 ##### Commandline
 2. Open a commandline tool(e.g. CMD, Powershell, git bash)
