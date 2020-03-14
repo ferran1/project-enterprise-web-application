@@ -31,7 +31,7 @@ If everything went succesfully until this point, you are ready to start the Spri
 4. Type 'ng test' in the commandline and press enter
 
 #### To run the back-end unit tests: 
-1. make sure their is a Java version 11 or above is installed
+1. make sure Java version 11 or above is installed
 
 ##### Intellij
 2. Open the server map as a intellij project
