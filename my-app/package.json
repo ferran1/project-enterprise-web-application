@@ -42,7 +42,7 @@
     "ng2-pdf-viewer": "^6.0.2",
     "ngx-bootstrap": "^2.0.5",
     "ngx-pagination": "^5.0.0",
-    "ngx-papaparse": "^3.0.4",
+    "ngx-papaparse": "^6.0.2",
     "nodemailer": "^6.4.2",
     "popper.js": "^1.16.0",
     "rxjs": "~6.4.0",
